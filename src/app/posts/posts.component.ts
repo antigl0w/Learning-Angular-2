@@ -9,13 +9,33 @@ import { Post } from '../post';
 })
 export class PostsComponent implements OnInit {
 
-  posts: any = [];
+  posts: Post[];
+  post: Post = { _id: "" ,name: "", comment: "" };
 
   constructor(private postsService: PostsService) { }
 
+  private updatePosts() {
+	this.postsService
+    		.getAllPosts().then(posts => this.posts = posts);
+		//add error catching
+  }
+
   ngOnInit() {
-    this.postsService.getAllPosts().subscribe(posts => {
-      this.posts = posts;
-    });
+	  this.updatePosts();
+  }
+
+  addPost(post, Post) {
+  	console.log("add post clicked: " + post.name);
+	this.postsService.addPost(post)
+	this.updatePosts();
+  }
+
+  deletePost(post: Post) {
+  	console.log("delete post with id: " + post._id);
+	this.postsService
+		.deletePost(post)
+		.then(res => {
+			this.updatePosts();
+		});
   }
 }

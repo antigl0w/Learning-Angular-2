@@ -22,7 +22,7 @@ export class VideosService {
 	let options = new RequestOptions({ headers: headers });
 	console.log("attempting to post video id: " + video.id);
 	return this.http
-		.post('/api/addVideo', JSON.stringify({"id": video.id}), options)
+		.post('/api/addVideo', JSON.stringify(video), options)
 		.toPromise()
 		.then(res => res);
 		//add error catching

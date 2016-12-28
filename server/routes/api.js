@@ -40,9 +40,11 @@ router.get('/posts', (req, res) => {
 router.post('/addPost', (req, res) => {
 	console.log("trying to add post");
 	console.log(req.body);	
+	delete req.body._id;
 	var addedPost = new Post(req.body)
 		.save(error => {
 			if (error) {
+				console.log(error);
 				res.status(500).send(error)
 			} else {
 				console.log("added post");
@@ -74,7 +76,8 @@ router.get('/videos', (req, res) => {
 router.post('/addVideo', (req, res) => {
 	console.log("trying to add video");
 	console.log(req.body);
-	var addedVideo = new Video({'id': req.body.id})
+	delete req.body._id;
+	var addedVideo = new Video(req.body)
 		.save(error => {
 			if(error) {
 				res.status(500).send(error)
