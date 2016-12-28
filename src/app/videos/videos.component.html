@@ -1,0 +1,24 @@
+<form>
+	<div class="form-group">
+		<label for="videoAdd">Add Video</label>
+		<input type="text" name='id' class="form-control" [(ngModel)]="video.id"/>
+	</div>
+	<button type="subit" class="btn btn-default" (click)="addVideo(video)">Add</button>
+</form>
+
+<br/>
+<br/>
+
+<ul *ngFor="let video of videos">
+	<li>
+		<div class="video-container">
+			<iframe [src]="video.id | safe" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<br/>
+		<button class="btn btn-danger" (click)="deleteVideo(video)">Delete</button>
+	</li>
+</ul>
+
+<br/>
+
+<app-posts>loading posts...</app-posts>
